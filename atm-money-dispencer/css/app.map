@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../scss/app.css",
+	"sources": [
+		"../scss/app.scss"
+	],
+	"sourcesContent": [
+		"*{ // resets\r\n    margin:0;\r\n    padding: 0;\r\n    box-sizing: border-box;\r\n}\r\n\r\n// colors\r\n$purple : #666699;\r\n$grey--light : #f1f1f1;\r\n$white : #fff;\r\n$black : #000;\r\n$blue : #3075ce; \r\n\r\n// globals\r\n\r\n$w-100: 100%; \r\n\r\n\r\n// common classes\r\n\r\n.bdr-1 {border:1px solid #999;}\r\n\r\n\r\n// styles\r\n\r\n.wrapper {\r\n\r\n    width: $w-100 - 20% ;\r\n    margin:0 auto;\r\n}"
+	],
+	"mappings": ";AAAA,AAAA,CAAC,CAAA;EACG,MAAM,EAAC,CAAE;EACT,OAAO,EAAE,CAAE;EACX,UAAU,EAAE,UAAW;CAC1B;;;AAgBD,AAAA,MAAM,CAAC;EAAC,MAAM,EAAC,cAAe;CAAG;;;AAKjC,AAAA,QAAQ,CAAC;EAEL,KAAK,EAAE,GAAM;EACb,MAAM,EAAC,MAAO;CACjB",
+	"names": []
+}
