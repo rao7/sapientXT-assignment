@@ -16,19 +16,23 @@
         <div class="row ">
             <section class="row__half p-1">
                 <fieldset class="form__holder card">
-                    <br/>
+                    <br/> <br/>
                     <legend class="txt-C">Welcome to ATM</legend>
                     <form  role="form">
                         <label for="amount" class="fs-14">Enter the amount</label>
                         <input type="number" id="amount" title="Enter withdraw amount" />
-                        <button type="button" class="submit card" onClick=" getAmount.dispenceNotes(amount);">Get Money</button>
+                        <button type="button" class="submit card"
+                         onClick=" getAmount.dispenceNotes(amount.value , notesType , totalNotes);">
+                         Get Money</button>
+                       
                     </form>
+                    <br/>
                 </fieldset>
 
             </section>
-            <section class="row__half ">
+            <section class="row__half p-1">
                 <p class="fs-14 p-1"><strong>You will get following amount</strong></p>
-                <ul class="row " id="notes-type">
+                <ul class="row " id="notesType">
                     <li class="row__half fs-14"> 0 note of Rs 1</li>
                     <li class="row__half fs-14"> 0 note of Rs 2</li>
                     <li class="row__half fs-14"> 0 note of Rs 5</li>
@@ -40,7 +44,7 @@
                     <li class="row__half fs-14"> 0 note of Rs 500</li>
                     <li class="row__half fs-14"> 0 note of Rs 2000</li>
                 </ul>
-                <p class="fs-14 p-1"><strong>Total notes dispenced :</strong>&nbsp;<b id="total-notes">12</b></p>
+                <p class="fs-14 p-1"><strong>Total notes dispenced :</strong>&nbsp;<b id="totalNotes">12</b></p>
             </section>
             
         </div>
