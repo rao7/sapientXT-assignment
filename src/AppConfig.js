@@ -1,4 +1,4 @@
-export const BaseUrl = 'https://api.spaceXdata.com/v3/launches?limit=100';
+export const BaseUrl = 'https://api.spaceXdata.com/v3/launches?limit=50';
 
 export const RelativeAddrApi = {
 

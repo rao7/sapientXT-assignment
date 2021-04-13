@@ -1,7 +1,9 @@
-import React from 'react';
+import React , {useContext, useState}from 'react';
 import styled from 'styled-components';
 import Card from './atom/card';
-import siteData from '../data/data.json'
+import SiteData from '../data/data.json'
+import {StoreContext} from '../context/store';
+import { useEffect } from 'react';
 const CardConStyled = styled.section`
 width:100%;
 min-height:200px;
@@ -26,15 +28,28 @@ row-gap:1rem;
 `;
 
 export default function CardContainer(props){
+    const {UpdateGlobaldata , globalData} = useContext(StoreContext);
+    const [isLoading , setLoading] = useState(globalData.loading);
     const {siteInfo} = props;
-    const AllLaunchData = siteData;
-
+    const AllLaunchData = SiteData;
+  
+    useEffect(()=>{
+        console.log(globalData)
+        if(globalData.loading === false){
+            setLoading(false);
+        }   
+    },[globalData])
+    
+    
+ 
     return (
         <CardConStyled>
-            {
-                AllLaunchData && AllLaunchData.map((data , index)=>{
+            {!isLoading ? (
+                 globalData && globalData.data.map((data , index)=>{
                     return <Card key={index} cardDetails={data} />
                 })
+            ) : ''
+               
             }
            
           

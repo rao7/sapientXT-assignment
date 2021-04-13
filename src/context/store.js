@@ -1,18 +1,39 @@
 import React , {createContext , useEffect, useState} from 'react';
-import {BaseUrl} from '../AppConfig';
+
 export const StoreContext = createContext();
+
+
 
 const Initial = {
     loading:false,
-    data:{},
+    siteData:[],
     filterdata:{}
 }
 
+
+
 export default function StoreProvider(props){
        const [globalData , setGlobalData] = useState(Initial);
-    
+
+       const UpdateGlobaldata = (resData) => { 
+           if(resData && Object.keys(resData).length !== 0){ 
+               const newdata = globalData;
+               newdata.data = resData;
+               setGlobalData(newdata);
+               console.log(globalData)
+           }
+       }
+       
+       const ToggleLoading = bool => {
+        let newdata = globalData;
+               newdata.loading = bool;
+        setGlobalData(newdata);
+       } 
+
+       useEffect((globalData)=>{ console.log(globalData); console.log('store updated')},[globalData])
+
        return(
-           <StoreContext.Provider value={{...globalData }}>
+           <StoreContext.Provider value={{globalData , UpdateGlobaldata , ToggleLoading }}>
                {props.children}
             </StoreContext.Provider>
        )

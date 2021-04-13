@@ -1,4 +1,4 @@
-import React , {useContext , useEffect} from 'react';
+import React , {useContext , useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Sidebar from './Sidebar';
 import CardContainer from './cardContainer';
@@ -22,18 +22,27 @@ padding: 0 1rem;
 
 export default function Container(props){
   
-    const {data , filterdata , loading} = useContext(StoreContext);
-    const {} = props;
+    const {UpdateGlobaldata , globalData , ToggleLoading} = useContext(StoreContext);
+    const [allLaunchData , setAllLaunchData] = useState({});
 
+    const UpdateData = async (params) => {
+        const defaultdata = await GethttpRequestData(BaseUrl);
+        ToggleLoading(true);
+        UpdateGlobaldata(defaultdata)
+        setAllLaunchData(defaultdata)
+        ToggleLoading(false);
+        console.log(globalData)
 
-    useEffect(()=>{ // check data and call API 
-     console.log(data)
-    },[data])
+       }
 
+       useEffect(()=>{ UpdateData(BaseUrl); console.log(allLaunchData) },[])
+    
     return (
         <ContainerStyled>
-            <Sidebar/>
-            <CardContainer/>
-        </ContainerStyled>
-    )
+           <Sidebar/>
+           {(Object.keys(allLaunchData).length !== 0) ? <CardContainer /> : <div>Loading</div> }
+           
+       </ContainerStyled>
+   )
+    
 }

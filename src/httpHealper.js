@@ -1,17 +1,16 @@
 const axios = require('axios');
 
-export const GethttpRequestData = (params) => {
+export const GethttpRequestData = async (params) => {
     if (params) {
-        axios.get(params)
-            .then(function (response) {
-                // handle success
-                //console.log(response.data);
-                return response.data;
-            })
-            .catch(function (error) {
-                // handle error
-                return error;
-            })
+        try {
+            const response = await axios.get(params);
+            const data = await response.data;
+           // console.log(data)
+            return data;
+          } catch (error) {
+            console.error(error);
+          }
+        
     }
 
 }

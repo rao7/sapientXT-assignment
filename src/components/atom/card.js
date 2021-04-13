@@ -41,7 +41,7 @@ background-color:${props => props.theme.white };
 
 export default function Card (props){
     const {cardDetails } = props;
-    console.log(cardDetails)
+
     return (
         cardDetails &&  <CardStyled className='card'>
             <figure className='card--image'>
