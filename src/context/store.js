@@ -2,15 +2,10 @@ import React , {createContext , useEffect, useState} from 'react';
 
 export const StoreContext = createContext();
 
-
-
 const Initial = {
     loading:false,
-    siteData:[],
-    filterdata:{}
+    data:[]
 }
-
-
 
 export default function StoreProvider(props){
        const [globalData , setGlobalData] = useState(Initial);
@@ -20,7 +15,8 @@ export default function StoreProvider(props){
                const newdata = globalData;
                newdata.data = resData;
                setGlobalData(newdata);
-               console.log(globalData)
+               ToggleLoading(false);
+               console.log(newdata)
            }
        }
        
@@ -30,7 +26,7 @@ export default function StoreProvider(props){
         setGlobalData(newdata);
        } 
 
-       useEffect((globalData)=>{ console.log(globalData); console.log('store updated')},[globalData])
+       useEffect((globalData)=>{  console.log('store updated')},[globalData])
 
        return(
            <StoreContext.Provider value={{globalData , UpdateGlobaldata , ToggleLoading }}>

@@ -21,9 +21,9 @@ border-radius:2px;
 `;
 
 export default function Button(props){
-    const {name , isSelected} = props;
+    const {name , isSelected , clickEvent} = props;
     return (
-        <ButtonStyled isSelected={isSelected}>
+        <ButtonStyled isSelected={isSelected} onClick={clickEvent && clickEvent}>
             {name}
         </ButtonStyled>
     )

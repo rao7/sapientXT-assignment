@@ -30,7 +30,7 @@ export default function Container(props){
         ToggleLoading(true);
         UpdateGlobaldata(defaultdata)
         setAllLaunchData(defaultdata)
-        ToggleLoading(false);
+        
         console.log(globalData)
 
        }

@@ -29,22 +29,21 @@ row-gap:1rem;
 
 export default function CardContainer(props){
     const {UpdateGlobaldata , globalData} = useContext(StoreContext);
-    const [isLoading , setLoading] = useState(globalData.loading);
+    //const [isLoading , setLoading] = useState(globalData.loading);
     const {siteInfo} = props;
-    const AllLaunchData = SiteData;
+    //const AllLaunchData = SiteData;
+    //console.log(globalData)
   
     useEffect(()=>{
         console.log(globalData)
-        if(globalData.loading === false){
-            setLoading(false);
-        }   
+    
     },[globalData])
     
     
  
     return (
         <CardConStyled>
-            {!isLoading ? (
+            {!globalData.loading ? (
                  globalData && globalData.data.map((data , index)=>{
                     return <Card key={index} cardDetails={data} />
                 })
