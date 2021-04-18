@@ -1,4 +1,7 @@
 import React , {createContext , useEffect, useState} from 'react';
+import { useContext } from 'react';
+import {BaseUrl} from '../AppConfig';
+import {GethttpRequestData} from '../httpHealper';
 
 export const StoreContext = createContext();
 
@@ -9,27 +12,16 @@ const Initial = {
 
 export default function StoreProvider(props){
        const [globalData , setGlobalData] = useState(Initial);
-
-       const UpdateGlobaldata = (resData) => { 
-           if(resData && Object.keys(resData).length !== 0){ 
-               const newdata = globalData;
-               newdata.data = resData;
-               setGlobalData(newdata);
-               ToggleLoading(false);
-               console.log(newdata)
-           }
-       }
-       
+      
        const ToggleLoading = bool => {
         let newdata = globalData;
                newdata.loading = bool;
         setGlobalData(newdata);
        } 
 
-       useEffect((globalData)=>{  console.log('store updated')},[globalData])
 
        return(
-           <StoreContext.Provider value={{globalData , UpdateGlobaldata , ToggleLoading }}>
+           <StoreContext.Provider value={{...globalData , updateGlobalData : setGlobalData }}>
                {props.children}
             </StoreContext.Provider>
        )

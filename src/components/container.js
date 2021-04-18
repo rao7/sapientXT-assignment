@@ -21,26 +21,13 @@ padding: 0 1rem;
 `;
 
 export default function Container(props){
-  
-    const {UpdateGlobaldata , globalData , ToggleLoading} = useContext(StoreContext);
-    const [allLaunchData , setAllLaunchData] = useState({});
 
-    const UpdateData = async (params) => {
-        const defaultdata = await GethttpRequestData(BaseUrl);
-        ToggleLoading(true);
-        UpdateGlobaldata(defaultdata)
-        setAllLaunchData(defaultdata)
-        
-        console.log(globalData)
-
-       }
-
-       useEffect(()=>{ UpdateData(BaseUrl); console.log(allLaunchData) },[])
     
     return (
         <ContainerStyled>
            <Sidebar/>
-           {(Object.keys(allLaunchData).length !== 0) ? <CardContainer /> : <div>Loading</div> }
+           <CardContainer />
+           
            
        </ContainerStyled>
    )

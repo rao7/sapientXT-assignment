@@ -1,15 +1,6 @@
-export const BaseUrl = 'https://api.spaceXdata.com/v3/launches?limit=50';
+export const BaseUrl = 'https://api.spaceXdata.com/v3/launches?limit=10';
 
-export const RelativeAddrApi = {
-
-    launchSuccess: BaseUrl+"&launch_success=true",
-    landSuccess: BaseUrl+"&launch_success=true&land_success=true",
-    yearLandSuccess: "&launch_success=true&land_success=true&launch_year=",
-
-  };
-
-
-  export const LaunchYear = [
+export const LaunchYear = [
     {year:'2006' , isActive:false},
     {year:'2007' , isActive:false},
     {year:'2008' , isActive:false},

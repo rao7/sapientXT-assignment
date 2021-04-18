@@ -4,7 +4,6 @@ import Button from './atom/button';
 import Heading from './atom/heading'
 import { LaunchYear } from '../AppConfig';
 import { StoreContext } from '../context/store';
-import { BaseUrl } from '../AppConfig';
 import { GethttpRequestData } from '../httpHealper';
 
 const SidebarStyled = styled.aside`
@@ -61,46 +60,30 @@ text-align:center;
 
 
 export default function Sidebar(props) {
-    // const {} = props;
-    const { UpdateGlobaldata, globalData, ToggleLoading } = useContext(StoreContext);
-    const [filterYear, SetFilterYear] = useState(LaunchYear);
-    const [filterLaunch, SetfilterLaunch] = useState();
-    const [filterLanding, SetfilterLanding] = useState();
+    const Store = useContext(StoreContext);
+    const { loading, data, updateGlobalData } = Store;
+    const [filterYear, SetFilterYear] = useState(null);
+    const [filterLaunch, SetfilterLaunch] = useState(null);
+    const [filterLanding, SetfilterLanding] = useState(null);
 
-    const UpdateData = async (paramType, params) => {
+
+    const UpdateData = async (year, launch, land) => {
         let param;
-        if (paramType && paramType === 'year') {
-            param = '&launch_year=' + params;
-        } else if (paramType && paramType === 'launch') {
-            param = '&launch_success=' + params;
-        } else if (paramType && paramType === 'land') {
-            param = '&land_success=' + params;
-        }
-        const defaultdata = await GethttpRequestData(BaseUrl + param);
-        ToggleLoading(true);
-        UpdateGlobaldata(defaultdata)
-        ToggleLoading(false);
-        console.table(defaultdata)
+        param += year ? '&launch_year=' + year : '';
+        param += launch ? '&launch_success=' + launch : '';
+        param += land ? '&land_success=' + land : '';
+        const defaultdata = await GethttpRequestData(param);
+        Store.data = defaultdata;
+        updateGlobalData(Store)
 
-    }
 
-    function filterByYear(year) {
-        const activeYearIndex = filterYear.findIndex((data) => data.isActive === true);
-        const SelectedYearIndex = filterYear.findIndex((data) => data.year === year);
-        const updatedFilter = filterYear;
-        if (activeYearIndex) {
-            updatedFilter[activeYearIndex].isActive = false;
-            console.log(updatedFilter[activeYearIndex])
-        }
-        updatedFilter[SelectedYearIndex].isActive = true;
-        console.log(updatedFilter)
-        SetFilterYear(updatedFilter);
-        //console.log(activeYearIndex , SelectedYearIndex)
     }
 
     useEffect(() => {
+        console.log(filterYear, filterLaunch, filterLanding);
+        UpdateData(filterYear, filterLaunch, filterLanding);
 
-    }, [filterYear])
+    }, [filterYear, filterLaunch, filterLanding])
 
     return (
         <SidebarStyled>
@@ -108,15 +91,14 @@ export default function Sidebar(props) {
                 <Heading className='title' headType={'h3'} bodyText={'filters'} />
                 <span className='filter--title'>Launch Year</span>
                 <div className="filter--year">
-                    {filterYear && filterYear.map((data, index) => {
+                    {LaunchYear && LaunchYear.map((data, index) => {
                         return <Button
                             key={index}
                             name={data.year}
-                            isSelected={data.isActive}
+                            isSelected={filterYear && filterYear === data.year ? true : false}
                             clickEvent={(e) => {
-                                // filterByYear(data.year);
-                                UpdateData('year', data.year);
 
+                                SetFilterYear(data.year)
                             }}
                         />
                     })}
@@ -126,21 +108,23 @@ export default function Sidebar(props) {
                 <span className='filter--title'>Successful launch</span>
                 <div className="filter--launch">
                     <Button name={'true'}
+                        isSelected={filterLaunch ? true : false}
                         clickEvent={(e) => {
-                            UpdateData('launch', true);
+                            SetfilterLaunch(true);
                         }} />
                     <Button name={'false'}
+                        isSelected={!filterLaunch ? true : false}
                         clickEvent={(e) => {
-                            UpdateData('launch', false);
+                            SetfilterLaunch(false);
                         }} />
                 </div>
                 <span className='filter--title'>Successful landing</span>
                 <div className="filter--landing">
-                    <Button name={'true'} clickEvent={(e) => {
-                        UpdateData('land', true);
+                    <Button name={'true'} isSelected={filterLanding ? true : false} clickEvent={(e) => {
+                        SetfilterLanding(true);
                     }} />
-                    <Button name={'false'} clickEvent={(e) => {
-                        UpdateData('land', false);
+                    <Button name={'false'} isSelected={!filterLanding ? true : false} clickEvent={(e) => {
+                        SetfilterLanding(false);
                     }} />
                 </div>
             </section>

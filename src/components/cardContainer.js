@@ -1,7 +1,10 @@
 import React , {useContext, useState}from 'react';
 import styled from 'styled-components';
 import Card from './atom/card';
-import SiteData from '../data/data.json'
+//import SiteData from '../data/data.json'
+import {BaseUrl} from '../AppConfig';
+import {GethttpRequestData} from '../httpHealper';
+
 import {StoreContext} from '../context/store';
 import { useEffect } from 'react';
 const CardConStyled = styled.section`
@@ -28,23 +31,32 @@ row-gap:1rem;
 `;
 
 export default function CardContainer(props){
-    const {UpdateGlobaldata , globalData} = useContext(StoreContext);
-    //const [isLoading , setLoading] = useState(globalData.loading);
-    const {siteInfo} = props;
-    //const AllLaunchData = SiteData;
-    //console.log(globalData)
+    const Store = useContext(StoreContext);
+    const {loading , data ,  updateGlobalData} = Store;
+
+    
+    const UpdateData = async (params) => {
+        const defaultdata = await GethttpRequestData();
+        Store.data = defaultdata ;
+        updateGlobalData(Store)
+
+       }
+  
   
     useEffect(()=>{
-        console.log(globalData)
+        console.log('loading is'+loading );
+        if(data.length === 0){
+            UpdateData();
+        }
     
-    },[globalData])
+    },[loading , data])
     
     
  
     return (
         <CardConStyled>
-            {!globalData.loading ? (
-                 globalData && globalData.data.map((data , index)=>{
+            {(data?.length > 0 ) ? (
+                 data && data.map((data , index)=>{
                     return <Card key={index} cardDetails={data} />
                 })
             ) : ''
