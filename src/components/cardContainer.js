@@ -15,6 +15,7 @@ display:grid;
 grid-template-columns: repeat(4, 1fr);
 column-gap: 1rem;
 row-gap:1rem;
+align-self: start
 
 
 @media screen and (min-width:768px) and (max-width:1024px){

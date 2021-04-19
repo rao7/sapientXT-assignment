@@ -113,7 +113,7 @@ export default function Sidebar(props) {
                             SetfilterLaunch(true);
                         }} />
                     <Button name={'false'}
-                        isSelected={!filterLaunch ? true : false}
+                        isSelected={ (filterLaunch === false) ? true : false}
                         clickEvent={(e) => {
                             SetfilterLaunch(false);
                         }} />
@@ -123,7 +123,7 @@ export default function Sidebar(props) {
                     <Button name={'true'} isSelected={filterLanding ? true : false} clickEvent={(e) => {
                         SetfilterLanding(true);
                     }} />
-                    <Button name={'false'} isSelected={!filterLanding ? true : false} clickEvent={(e) => {
+                    <Button name={'false'} isSelected={(filterLanding === false) ? true : false} clickEvent={(e) => {
                         SetfilterLanding(false);
                     }} />
                 </div>
